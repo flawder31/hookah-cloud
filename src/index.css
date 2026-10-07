@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-cinzel: 'Cinzel', serif;
+  --font-inter: 'Inter', sans-serif;
+  --color-gold: #C9A87C;
+  --color-gold-dark: #A8854F;
+  --color-gold-light: #E2C99A;
+  --color-marble: #F5F0E8;
+  --color-parchment: #F0EDE9;
+  --color-obsidian: #0E0C0A;
+  --color-charcoal: #1A1714;
+  --color-stone: #2C2720;
+  --color-mist: #8C8580;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0E0C0A;
+  color: #F5F0E8;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Entrance animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes lineGrow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+.anim-fade-up {
+  opacity: 0;
+  animation: fadeUp 0.75s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.anim-fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
+}
+.anim-line {
+  transform-origin: left;
+  animation: lineGrow 0.6s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Gold shimmer on title hover */
+.gold-shimmer {
+  background: linear-gradient(90deg, #C9A87C 30%, #F0D9A8 50%, #C9A87C 70%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gold-shimmer:hover {
+  animation: shimmer 1.6s linear infinite;
+}
+
+/* Greek meander border utility */
+.meander-top {
+  border-top: 2px solid #C9A87C;
+  position: relative;
+}
+
+/* Custom scrollbar hidden by default */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #C9A87C44;
+  border-radius: 2px;
+}
+
+/* Hide scrollbar for reviews */
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+.scroll-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Greek ornamental divider */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #C9A87C;
+  opacity: 0.6;
+}
+.ornament::before,
+.ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #C9A87C, transparent);
+}
+
+/* Media is framed like a lit gallery niche, keeping video and event art native to the Greek theme. */
+.video-frame,
+.event-frame {
+  position: relative;
+  box-shadow:
+    0 24px 60px rgb(0 0 0 / 35%),
+    inset 0 0 0 1px rgb(201 168 124 / 18%);
+}
+
+.video-frame::after,
+.event-frame::after {
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgb(201 168 124 / 22%);
+  border-radius: 12px;
+  content: '';
+  pointer-events: none;
+}
+
+.video-placeholder,
+.event-placeholder {
+  background:
+    radial-gradient(circle at 50% 30%, rgb(201 168 124 / 12%), transparent 38%),
+    linear-gradient(135deg, #1a1714, #0e0c0a);
+}
+
+.social-card {
+  box-shadow: 0 12px 36px rgb(0 0 0 / 18%);
+}
+
+.social-card:hover {
+  box-shadow: 0 18px 42px rgb(0 0 0 / 28%);
+}
+
+.slogan-panel {
+  position: relative;
+  border-top: 1px solid rgb(201 168 124 / 45%);
+  border-bottom: 1px solid rgb(201 168 124 / 45%);
+  background: linear-gradient(90deg, transparent, rgb(14 12 10 / 58%), transparent);
+  filter: drop-shadow(0 8px 18px rgb(0 0 0 / 45%));
+}
+
+.slogan-panel::before,
+.slogan-panel::after {
+  position: absolute;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  background: #c9a87c;
+  content: '';
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.slogan-panel::before {
+  left: -3px;
+}
+
+.slogan-panel::after {
+  right: -3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

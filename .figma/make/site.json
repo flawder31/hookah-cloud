@@ -1,0 +1,10 @@
+{
+  "description": "Discover a stylish lounge experience with a user-friendly booking system, menu exploration, and customer reviews, all designed for a cozy atmosphere.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
