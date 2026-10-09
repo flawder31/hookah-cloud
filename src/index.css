@@ -28,6 +28,8 @@ body {
   color: #F5F0E8;
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* ── Entrance animations ── */
@@ -90,7 +92,7 @@ body {
   position: relative;
 }
 
-/* Custom scrollbar hidden by default */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -103,7 +105,7 @@ body {
   border-radius: 2px;
 }
 
-/* Hide scrollbar for reviews */
+/* Hide scrollbar for horizontal scroll areas */
 .scroll-hide::-webkit-scrollbar {
   display: none;
 }
@@ -128,7 +130,7 @@ body {
   background: linear-gradient(to right, transparent, #C9A87C, transparent);
 }
 
-/* Media is framed like a lit gallery niche, keeping video and event art native to the Greek theme. */
+/* Media frames */
 .video-frame,
 .event-frame {
   position: relative;
@@ -187,6 +189,22 @@ body {
 
 .slogan-panel::after {
   right: -3px;
+}
+
+/* ── Safe-area helpers for iPhone (Dynamic Island, home indicator) ── */
+.safe-bottom {
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+.hero-section {
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+@media (max-width: 767px) {
+  .hero-section {
+    min-height: 100svh;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

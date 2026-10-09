@@ -30,7 +30,7 @@ export default function App() {
         <button
           type="button"
           onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
-          className="block h-14 w-full bg-gold font-cinzel text-xs font-semibold uppercase tracking-[0.22em] text-obsidian md:hidden"
+          className="safe-bottom block w-full bg-gold py-4 font-cinzel text-xs font-semibold uppercase tracking-[0.22em] text-obsidian md:hidden"
         >
           Забронировать столик
         </button>

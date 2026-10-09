@@ -7,7 +7,6 @@ export default function Hero() {
   const [footerVisible, setFooterVisible] = useState(false)
 
   useEffect(() => {
-    // Small delay so fonts are ready before animating
     const t = setTimeout(() => setLoaded(true), 120)
     return () => clearTimeout(t)
   }, [])
@@ -28,22 +27,22 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative min-h-[140svh] overflow-clip md:flex md:min-h-[100svh] md:items-center md:justify-center">
-      {/* ── Backgrounds ── */}
-      {/* Desktop: landscape — face is left-center; object-position keeps head visible */}
+    <section className="hero-section relative flex min-h-[100svh] flex-col overflow-hidden md:min-h-[100svh]">
+      {/* Desktop background */}
       <img
         src={heroBgDesktop}
         alt="Зевс с кальяном"
-        className="absolute inset-0 w-full h-full object-cover hidden md:block"
+        className="absolute inset-0 hidden h-full w-full object-cover md:block"
         style={{ objectPosition: 'center 30%' }}
       />
-      {/* On mobile the image stays while the content scrolls away, then follows the section. */}
-      <div className="sticky top-0 h-[100svh] md:hidden">
+
+      {/* Mobile background — absolute, не sticky */}
+      <div className="absolute inset-0 md:hidden">
         <img
           src={heroBgMobile}
           alt="Зевс с кальяном"
           className="absolute inset-0 h-full w-full object-cover"
-          style={{ objectPosition: 'center 18%' }}
+          style={{ objectPosition: 'center 20%' }}
         />
         <div
           className="absolute inset-0"
@@ -56,7 +55,7 @@ export default function Hero() {
         />
       </div>
 
-      {/* Overlay: vignette darkens edges, centre stays partially clear to show Zeus */}
+      {/* Desktop overlay */}
       <div
         className="absolute inset-0 hidden md:block"
         style={{
@@ -67,12 +66,11 @@ export default function Hero() {
         }}
       />
 
-      {/* ── Content — centred ── */}
-      <div className="relative z-10 -mt-[100svh] flex h-[100svh] flex-col items-center justify-center px-6 py-20 text-center md:mt-0 md:h-auto">
-
+      {/* Content */}
+      <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 py-20 text-center">
         {/* LOUNGE tag */}
         <div
-          className="flex items-center gap-3 mb-6"
+          className="mb-6 flex items-center gap-3"
           style={{
             opacity: loaded ? 1 : 0,
             animation: loaded ? 'fadeIn 0.5s ease 0.1s forwards' : 'none',
@@ -106,8 +104,7 @@ export default function Hero() {
         <h1
           className="gold-shimmer font-cinzel font-black uppercase leading-none tracking-[0.1em] mb-1"
           style={{
-            fontSize: 'clamp(38px, 10vw, 88px)',
-            textShadow: 'none',
+            fontSize: 'clamp(34px, 9vw, 88px)',
             filter: 'drop-shadow(0 2px 12px rgba(0,0,0,0.9))',
             opacity: loaded ? 1 : 0,
             transform: loaded ? 'translateY(0)' : 'translateY(24px)',
@@ -121,7 +118,7 @@ export default function Hero() {
         <h1
           className="gold-shimmer font-cinzel font-black uppercase leading-none tracking-[0.1em] mb-8"
           style={{
-            fontSize: 'clamp(38px, 10vw, 88px)',
+            fontSize: 'clamp(34px, 9vw, 88px)',
             filter: 'drop-shadow(0 2px 12px rgba(0,0,0,0.9))',
             opacity: loaded ? 1 : 0,
             transform: loaded ? 'translateY(0)' : 'translateY(24px)',
@@ -133,20 +130,20 @@ export default function Hero() {
 
         {/* Divider */}
         <div
-          className="flex items-center gap-3 mb-6"
+          className="mb-6 flex items-center gap-3"
           style={{
             opacity: loaded ? 0.5 : 0,
             transition: 'opacity 0.6s ease 0.6s',
           }}
         >
-          <span className="block w-6 h-px bg-[#C9A87C]" />
-          <span className="block w-1.5 h-1.5 rotate-45 bg-[#C9A87C]" />
-          <span className="block w-6 h-px bg-[#C9A87C]" />
+          <span className="block h-px w-6 bg-[#C9A87C]" />
+          <span className="block h-1.5 w-1.5 rotate-45 bg-[#C9A87C]" />
+          <span className="block h-px w-6 bg-[#C9A87C]" />
         </div>
 
         {/* Slogan */}
         <p
-          className="slogan-panel mb-10 max-w-sm px-5 py-4 font-cinzel text-[clamp(18px,4vw,26px)] font-semibold uppercase leading-snug tracking-[0.08em] text-gold-light md:max-w-xl"
+          className="slogan-panel mb-10 max-w-sm px-5 py-4 font-cinzel text-[clamp(16px,4vw,26px)] font-semibold uppercase leading-snug tracking-[0.08em] text-gold-light md:max-w-xl"
           style={{
             textShadow: '0 1px 8px rgba(0,0,0,0.95)',
             opacity: loaded ? 1 : 0,
@@ -182,14 +179,14 @@ export default function Hero() {
 
       {/* Scroll nudge */}
       <div
-        className="absolute bottom-24 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
+        className="absolute bottom-24 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 md:bottom-8"
         style={{
           opacity: loaded ? 0.35 : 0,
           transition: 'opacity 0.6s ease 1.2s',
           animation: loaded ? 'fadeIn 0.6s ease 1.2s forwards, bounce 2s ease 1.8s infinite' : 'none',
         }}
       >
-        <span className="block w-px h-8 bg-[#C9A87C]" />
+        <span className="block h-8 w-px bg-[#C9A87C]" />
         <span
           className="font-cinzel uppercase tracking-[0.3em]"
           style={{ fontSize: '8px', color: '#C9A87C' }}
@@ -198,22 +195,23 @@ export default function Hero() {
         </span>
       </div>
 
-      {/* Mobile sticky CTA */}
+      {/* Mobile sticky CTA — с safe-area */}
       <button
         onClick={scrollToBooking}
-        className="fixed bottom-0 left-0 right-0 z-50 font-cinzel font-semibold uppercase tracking-widest transition-all duration-300 active:brightness-90 md:hidden"
+        className="safe-bottom fixed bottom-0 left-0 right-0 z-50 font-cinzel font-semibold uppercase tracking-widest transition-all duration-300 active:brightness-90 md:hidden"
         style={{
-          height: '56px',
-          borderRadius: '16px 16px 0 0',
+          minHeight: '56px',
+          paddingBottom: 'max(12px, env(safe-area-inset-bottom))',
           background: '#C9A87C',
           color: '#0E0C0A',
-          fontSize: '12px',
-          letterSpacing: '0.22em',
+          fontSize: '13px',
+          letterSpacing: '0.2em',
           boxShadow: '0 -4px 20px rgba(201,168,124,0.3)',
           opacity: loaded && !footerVisible ? 1 : 0,
           pointerEvents: footerVisible ? 'none' : 'auto',
           transform: footerVisible ? 'translateY(100%)' : 'translateY(0)',
           transition: 'opacity 0.3s ease, transform 0.3s ease',
+          touchAction: 'manipulation',
         }}
       >
         Забронировать столик

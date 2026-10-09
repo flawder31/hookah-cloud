@@ -33,7 +33,7 @@ export default function Socials() {
               aria-label={name}
               className="social-card group flex min-h-32 flex-col items-center justify-center rounded-2xl border border-stone bg-charcoal/70 transition-all duration-300 hover:-translate-y-1 hover:border-gold/50"
             >
-              <span className="flex h-13 w-13 items-center justify-center rounded-full border border-gold/25 p-2.5 transition-all duration-300 group-hover:scale-110 group-hover:border-gold/60">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/25 p-2.5 transition-all duration-300 group-hover:scale-110 group-hover:border-gold/60">
                 <img src={logo} alt="" className="h-full w-full object-contain" />
               </span>
               <span className="mt-4 font-inter text-xs text-mist transition-colors group-hover:text-marble">{name}</span>
