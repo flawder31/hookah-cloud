@@ -27,7 +27,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="hero-section relative flex min-h-[100svh] flex-col overflow-hidden md:min-h-[100svh]">
+    <section className="relative min-h-[140svh] overflow-clip md:flex md:min-h-[100svh] md:items-center md:justify-center">
       {/* Desktop background */}
       <img
         src={heroBgDesktop}
@@ -36,13 +36,13 @@ export default function Hero() {
         style={{ objectPosition: 'center 30%' }}
       />
 
-      {/* Mobile background — absolute, не sticky */}
-      <div className="absolute inset-0 md:hidden">
+      {/* Mobile: sticky-фон, который держится, пока текст уползает */}
+      <div className="sticky top-0 h-[100svh] md:hidden">
         <img
           src={heroBgMobile}
           alt="Зевс с кальяном"
           className="absolute inset-0 h-full w-full object-cover"
-          style={{ objectPosition: 'center 20%' }}
+          style={{ objectPosition: 'center 18%' }}
         />
         <div
           className="absolute inset-0"
@@ -66,9 +66,8 @@ export default function Hero() {
         }}
       />
 
-      {/* Content */}
-      <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 py-20 text-center">
-        {/* LOUNGE tag */}
+      {/* Content — уползает поверх sticky-фона на мобиле */}
+      <div className="relative z-10 -mt-[100svh] flex h-[100svh] flex-col items-center justify-center px-6 py-20 text-center md:mt-0 md:h-auto">
         <div
           className="mb-6 flex items-center gap-3"
           style={{
@@ -100,11 +99,10 @@ export default function Hero() {
           />
         </div>
 
-        {/* Title line 1 */}
         <h1
           className="gold-shimmer font-cinzel font-black uppercase leading-none tracking-[0.1em] mb-1"
           style={{
-            fontSize: 'clamp(34px, 9vw, 88px)',
+            fontSize: 'clamp(36px, 10vw, 88px)',
             filter: 'drop-shadow(0 2px 12px rgba(0,0,0,0.9))',
             opacity: loaded ? 1 : 0,
             transform: loaded ? 'translateY(0)' : 'translateY(24px)',
@@ -114,11 +112,10 @@ export default function Hero() {
           ПАРЯЩИЕ
         </h1>
 
-        {/* Title line 2 */}
         <h1
           className="gold-shimmer font-cinzel font-black uppercase leading-none tracking-[0.1em] mb-8"
           style={{
-            fontSize: 'clamp(34px, 9vw, 88px)',
+            fontSize: 'clamp(36px, 10vw, 88px)',
             filter: 'drop-shadow(0 2px 12px rgba(0,0,0,0.9))',
             opacity: loaded ? 1 : 0,
             transform: loaded ? 'translateY(0)' : 'translateY(24px)',
@@ -128,7 +125,6 @@ export default function Hero() {
           ОБЛАКА
         </h1>
 
-        {/* Divider */}
         <div
           className="mb-6 flex items-center gap-3"
           style={{
@@ -141,9 +137,8 @@ export default function Hero() {
           <span className="block h-px w-6 bg-[#C9A87C]" />
         </div>
 
-        {/* Slogan */}
         <p
-          className="slogan-panel mb-10 max-w-sm px-5 py-4 font-cinzel text-[clamp(16px,4vw,26px)] font-semibold uppercase leading-snug tracking-[0.08em] text-gold-light md:max-w-xl"
+          className="slogan-panel mb-10 max-w-sm px-5 py-4 font-cinzel text-[clamp(18px,4vw,26px)] font-semibold uppercase leading-snug tracking-[0.08em] text-gold-light md:max-w-xl"
           style={{
             textShadow: '0 1px 8px rgba(0,0,0,0.95)',
             opacity: loaded ? 1 : 0,
@@ -154,7 +149,6 @@ export default function Hero() {
           Новая архитектура вашего отдыха
         </p>
 
-        {/* Desktop CTA */}
         <button
           onClick={scrollToBooking}
           className="hidden md:block font-cinzel font-semibold uppercase tracking-widest transition-all duration-300 hover:scale-105 active:scale-95"
@@ -195,18 +189,19 @@ export default function Hero() {
         </span>
       </div>
 
-      {/* Mobile sticky CTA — с safe-area */}
+      {/* Mobile sticky CTA — скруглённая + safe-area */}
       <button
         onClick={scrollToBooking}
-        className="safe-bottom fixed bottom-0 left-0 right-0 z-50 font-cinzel font-semibold uppercase tracking-widest transition-all duration-300 active:brightness-90 md:hidden"
+        className="fixed bottom-0 left-0 right-0 z-50 font-cinzel font-semibold uppercase tracking-widest transition-all duration-300 active:brightness-90 md:hidden"
         style={{
           minHeight: '56px',
           paddingBottom: 'max(12px, env(safe-area-inset-bottom))',
+          borderRadius: '20px 20px 0 0',
           background: '#C9A87C',
           color: '#0E0C0A',
           fontSize: '13px',
           letterSpacing: '0.2em',
-          boxShadow: '0 -4px 20px rgba(201,168,124,0.3)',
+          boxShadow: '0 -6px 28px rgba(201,168,124,0.45)',
           opacity: loaded && !footerVisible ? 1 : 0,
           pointerEvents: footerVisible ? 'none' : 'auto',
           transform: footerVisible ? 'translateY(100%)' : 'translateY(0)',
