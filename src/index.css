@@ -28,8 +28,37 @@ body {
   color: #F5F0E8;
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* iOS Safari needs explicit safe-area spacing and native control colors. */
+.mobile-booking-cta {
+  min-height: calc(56px + env(safe-area-inset-bottom, 0px));
+  padding: 0 16px env(safe-area-inset-bottom, 0px);
+}
+
+.booking-date-time {
+  color-scheme: light;
+  -webkit-text-fill-color: #1A1714;
+}
+
+.booking-date-time::-webkit-date-and-time-value {
+  min-height: 1.2em;
+  text-align: left;
+}
+
+@media (max-width: 767px) {
+  .hero-content-mobile {
+    justify-content: flex-start;
+    padding-top: max(10svh, calc(env(safe-area-inset-top, 0px) + 32px));
+  }
+
+  .hero-title {
+    font-size: clamp(42px, 12vw, 56px) !important;
+  }
+
+  .booking-control {
+    font-size: 16px !important;
+  }
 }
 
 /* ── Entrance animations ── */
@@ -92,7 +121,7 @@ body {
   position: relative;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar hidden by default */
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -105,7 +134,7 @@ body {
   border-radius: 2px;
 }
 
-/* Hide scrollbar for horizontal scroll areas */
+/* Hide scrollbar for reviews */
 .scroll-hide::-webkit-scrollbar {
   display: none;
 }
@@ -130,7 +159,7 @@ body {
   background: linear-gradient(to right, transparent, #C9A87C, transparent);
 }
 
-/* Media frames */
+/* Media is framed like a lit gallery niche, keeping video and event art native to the Greek theme. */
 .video-frame,
 .event-frame {
   position: relative;
@@ -189,82 +218,6 @@ body {
 
 .slogan-panel::after {
   right: -3px;
-}
-
-/* ── Safe-area helpers for iPhone (Dynamic Island, home indicator) ── */
-.safe-bottom {
-  padding-bottom: max(16px, env(safe-area-inset-bottom));
-}
-
-.hero-section {
-  min-height: 100svh;
-  min-height: 100dvh;
-}
-
-@media (max-width: 767px) {
-  .hero-section {
-    min-height: 100svh;
-  }
-}
-
-/* ── iOS: date/time/select — убираем белый фон и делаем тёмную тему ── */
-input[type="date"],
-input[type="time"],
-input[type="datetime-local"] {
-  -webkit-appearance: none;
-  appearance: none;
-  color-scheme: dark;              /* иконки календаря/часов становятся светлыми */
-  background: #F0EDE9;
-  color: #1A1714;
-  min-height: 52px;
-  padding: 0 12px;
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  line-height: 1.2;
-  border-radius: 12px;
-  border: 1.5px solid transparent;
-  width: 100%;
-  outline: none;
-}
-
-/* Chrome/Safari iOS: убираем внутренний зум и странный фон */
-input[type="date"]::-webkit-date-and-time-value,
-input[type="time"]::-webkit-date-and-time-value {
-  text-align: left;
-  color: #1A1714;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator,
-input[type="time"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);               /* иконка тёмная на светлом фоне */
-  opacity: 0.55;
-  cursor: pointer;
-}
-
-/* Когда поле пустое — показываем серый placeholder-цвет */
-input[type="date"]:invalid,
-input[type="time"]:invalid {
-  color: #8C8580;
-}
-
-/* ── Select: своя стрелка + серый цвет, если ничего не выбрано ── */
-select {
-  -webkit-appearance: none;
-  appearance: none;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231A1714' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  background-size: 14px 14px;
-  padding-right: 44px !important;
-  color: #1A1714;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-/* Пока ничего не выбрано — серый (как placeholder) */
-select:invalid,
-select option[value=""] {
-  color: #8C8580;
 }
 
 @media (prefers-reduced-motion: reduce) {

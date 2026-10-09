@@ -13,22 +13,19 @@ const RATE_LIMIT_KEY = 'clouds_booking_attempts'
 const RATE_LIMIT_WINDOW = 15 * 60 * 1000
 const RATE_LIMIT_MAX = 3
 
-const inputStyle: React.CSSProperties = {
-  minHeight: '52px',
+const inputStyle = {
+  height: '52px',
   borderRadius: '12px',
   background: '#F0EDE9',
   border: '1.5px solid transparent',
   color: '#1A1714',
-  fontSize: '16px',          // 16px обязателен, иначе iOS Safari зумит при фокусе
-  lineHeight: 1.2,
+  fontSize: '14px',
   paddingLeft: '16px',
   paddingRight: '16px',
   width: '100%',
   fontFamily: 'Inter, sans-serif',
   outline: 'none',
   transition: 'border-color 0.2s',
-  WebkitAppearance: 'none',
-  appearance: 'none',
 }
 
 export default function BookingForm() {
@@ -65,6 +62,7 @@ export default function BookingForm() {
       `Персон: ${data.guests}`
 
     try {
+      // Replace TOKEN and CHAT_ID with real values for production
       const TOKEN = 'YOUR_BOT_TOKEN'
       const CHAT_ID = 'YOUR_CHAT_ID'
 
@@ -90,8 +88,9 @@ export default function BookingForm() {
   }
 
   return (
-    <section id="booking" className="bg-[#12100D] px-4 pb-28 pt-16 md:px-8 md:py-20 md:pb-20">
-      <div className="mx-auto max-w-xl">
+    <section id="booking" className="bg-[#12100D] py-20 px-4 md:px-8 pb-28 md:pb-20">
+      <div className="max-w-xl mx-auto">
+        {/* Label */}
         <div className="ornament mb-4">
           <span className="text-[10px] tracking-[0.4em] uppercase font-cinzel" style={{ color: '#C9A87C' }}>БРОНИРОВАНИЕ</span>
         </div>
@@ -102,7 +101,7 @@ export default function BookingForm() {
         >
           Забронировать столик
         </h2>
-        <p className="text-center font-inter mb-8 md:mb-10" style={{ fontSize: '13px', color: '#6B6560' }}>
+        <p className="text-center font-inter mb-10" style={{ fontSize: '13px', color: '#6B6560' }}>
           Ответим в течение 15 минут
         </p>
 
@@ -113,6 +112,7 @@ export default function BookingForm() {
           </div>
         ) : (
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            {/* Name */}
             <div>
               <input
                 {...register('name', {
@@ -121,10 +121,10 @@ export default function BookingForm() {
                   maxLength: { value: 20, message: 'Не более 20 символов' },
                   pattern: { value: /^[A-Za-zА-Яа-яЁё -]+$/, message: 'Используйте только буквы, пробел и дефис' },
                 })}
-                id="booking-name"
                 placeholder="Ваше имя"
                 maxLength={20}
                 autoComplete="name"
+                className="booking-control"
                 style={inputStyle}
               />
               {errors.name && (
@@ -132,6 +132,7 @@ export default function BookingForm() {
               )}
             </div>
 
+            {/* Phone */}
             <div>
               <input
                 {...register('phone', {
@@ -141,11 +142,11 @@ export default function BookingForm() {
                     return (digits.length >= 10 && digits.length <= 15) || 'Введите корректный номер телефона'
                   },
                 })}
-                id="booking-phone"
                 placeholder="+7 (___) ___-__-__"
                 type="tel"
                 inputMode="tel"
                 autoComplete="tel"
+                className="booking-control"
                 style={inputStyle}
               />
               {errors.phone && (
@@ -153,21 +154,30 @@ export default function BookingForm() {
               )}
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
+            {/* Date + Time */}
+            <div className="grid grid-cols-1 gap-3 min-[360px]:grid-cols-2">
+              <div className="min-w-0">
+                <label htmlFor="booking-date" className="mb-1.5 block font-inter text-xs text-gold">
+                  Дата
+                </label>
                 <input
                   {...register('date', { required: 'Выберите дату' })}
                   id="booking-date"
                   type="date"
                   min={new Date().toISOString().split('T')[0]}
+                  className="booking-control booking-date-time min-w-0"
                   style={{ ...inputStyle, paddingLeft: '12px', paddingRight: '12px' }}
                 />
               </div>
-              <div>
+              <div className="min-w-0">
+                <label htmlFor="booking-time" className="mb-1.5 block font-inter text-xs text-gold">
+                  Время
+                </label>
                 <input
                   {...register('time', { required: 'Выберите время' })}
                   id="booking-time"
                   type="time"
+                  className="booking-control booking-date-time min-w-0"
                   style={{ ...inputStyle, paddingLeft: '12px', paddingRight: '12px' }}
                 />
               </div>
@@ -176,13 +186,14 @@ export default function BookingForm() {
               <p className="-mt-3 font-inter text-[11px] text-gold">Укажите дату и время бронирования</p>
             )}
 
+            {/* Guests */}
             <div>
               <select
                 {...register('guests', { required: 'Выберите кол-во' })}
-                id="booking-guests"
-                style={{ ...inputStyle, cursor: 'pointer' }}
+                className="booking-control"
+                style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}
               >
-                <option value="">Количество персон</option>
+                <option value="">Выберите количество персон</option>
                 {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
                   <option key={n} value={n}>{n} {n === 1 ? 'персона' : n < 5 ? 'персоны' : 'персон'}</option>
                 ))}
@@ -199,19 +210,19 @@ export default function BookingForm() {
               </p>
             )}
 
+            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className="font-cinzel font-semibold uppercase tracking-widest text-white transition-all duration-300 hover:bg-[#A8854F] active:scale-[0.98] disabled:opacity-60"
+              className="font-cinzel font-semibold uppercase tracking-widest text-white transition-all duration-300 hover:bg-[#A8854F] active:scale-98 disabled:opacity-60"
               style={{
-                minHeight: '56px',
+                height: '56px',
                 borderRadius: '16px',
                 background: '#C9A87C',
                 fontSize: '13px',
                 letterSpacing: '0.2em',
                 width: '100%',
                 cursor: loading ? 'not-allowed' : 'pointer',
-                touchAction: 'manipulation',
               }}
             >
               {loading ? 'Отправка...' : 'Отправить заявку'}
