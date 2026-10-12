@@ -13,7 +13,7 @@ export default function Socials() {
   const { ref, visible } = useReveal()
 
   return (
-    <section ref={ref as React.RefObject<HTMLElement>} className="bg-obsidian px-4 py-20 md:px-8">
+    <section ref={ref as React.RefObject<HTMLElement>} className="bg-obsidian px-4 pt-20 pb-[calc(8.5rem+env(safe-area-inset-bottom,0px))] md:px-8 md:pb-20">
       <div className={`reveal mx-auto max-w-4xl text-center ${visible ? 'visible' : ''}`}>
         <div className="ornament mb-4">
           <span className="font-cinzel text-[10px] uppercase tracking-[0.4em] text-gold">НА СВЯЗИ</span>

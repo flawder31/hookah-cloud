@@ -16,7 +16,7 @@ const RATE_LIMIT_MAX = 3
 const inputStyle = {
   height: '52px',
   borderRadius: '12px',
-  background: '#F0EDE9',
+  backgroundColor: '#F0EDE9',
   border: '1.5px solid transparent',
   color: '#1A1714',
   fontSize: '14px',
@@ -88,8 +88,8 @@ export default function BookingForm() {
   }
 
   return (
-    <section id="booking" className="bg-[#12100D] py-20 px-4 md:px-8 pb-28 md:pb-20">
-      <div className="max-w-xl mx-auto">
+    <section id="booking" className="booking-section bg-[#12100D] px-4 pt-20 md:px-8">
+      <div className="mx-auto min-w-0 max-w-xl">
         {/* Label */}
         <div className="ornament mb-4">
           <span className="text-[10px] tracking-[0.4em] uppercase font-cinzel" style={{ color: '#C9A87C' }}>БРОНИРОВАНИЕ</span>
@@ -111,7 +111,7 @@ export default function BookingForm() {
             <p className="font-inter text-[#8C8580] text-sm">Мы свяжемся с вами в ближайшее время</p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex min-w-0 flex-col gap-4">
             {/* Name */}
             <div>
               <input
@@ -155,7 +155,7 @@ export default function BookingForm() {
             </div>
 
             {/* Date + Time */}
-            <div className="grid grid-cols-1 gap-3 min-[360px]:grid-cols-2">
+            <div className="grid min-w-0 grid-cols-1 gap-3 min-[400px]:grid-cols-2">
               <div className="min-w-0">
                 <label htmlFor="booking-date" className="mb-1.5 block font-inter text-xs text-gold">
                   Дата
@@ -190,7 +190,7 @@ export default function BookingForm() {
             <div>
               <select
                 {...register('guests', { required: 'Выберите кол-во' })}
-                className="booking-control"
+                className="booking-control booking-select"
                 style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}
               >
                 <option value="">Выберите количество персон</option>

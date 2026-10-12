@@ -135,7 +135,7 @@ export default function Hero() {
 
         {/* Divider */}
         <div
-          className="flex items-center gap-3 mb-6"
+          className="hero-slogan-gap flex items-center gap-3 mb-6"
           style={{
             opacity: loaded ? 0.5 : 0,
             transition: 'opacity 0.6s ease 0.6s',
@@ -202,21 +202,10 @@ export default function Hero() {
 
       {/* Mobile sticky CTA */}
       <button
+        type="button"
         onClick={scrollToBooking}
         data-mobile-booking-cta
-        className="mobile-booking-cta fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center font-cinzel font-semibold uppercase tracking-widest transition-all duration-300 active:brightness-90 md:hidden"
-        style={{
-          borderRadius: '16px 16px 0 0',
-          background: '#C9A87C',
-          color: '#0E0C0A',
-          fontSize: '12px',
-          letterSpacing: '0.22em',
-          boxShadow: '0 -4px 20px rgba(201,168,124,0.3)',
-          opacity: loaded && !footerVisible ? 1 : 0,
-          pointerEvents: footerVisible ? 'none' : 'auto',
-          transform: footerVisible ? 'translateY(100%)' : 'translateY(0)',
-          transition: 'opacity 0.3s ease, transform 0.3s ease',
-        }}
+        className={`mobile-booking-cta font-cinzel font-semibold uppercase active:brightness-90 md:hidden ${loaded && !footerVisible ? 'is-shown' : ''}`}
       >
         Забронировать столик
       </button>

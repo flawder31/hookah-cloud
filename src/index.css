@@ -36,14 +36,45 @@ body {
   padding: 0 16px env(safe-area-inset-bottom, 0px);
 }
 
+.booking-section {
+  padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));
+}
+
+.booking-control {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 52px;
+  min-height: 52px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 .booking-date-time {
   color-scheme: light;
+  color: #1A1714;
   -webkit-text-fill-color: #1A1714;
 }
 
 .booking-date-time::-webkit-date-and-time-value {
   min-height: 1.2em;
   text-align: left;
+}
+
+.booking-date-time::-webkit-datetime-edit,
+.booking-date-time::-webkit-datetime-edit-fields-wrapper {
+  padding: 0;
+}
+
+.booking-select {
+  padding-right: 40px !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='m4 6 4 4 4-4' stroke='%231A1714' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px 16px;
 }
 
 @media (max-width: 767px) {
@@ -58,6 +89,18 @@ body {
 
   .booking-control {
     font-size: 16px !important;
+  }
+
+  body:has(.booking-section :is(input, select):focus) .mobile-booking-cta {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(100%) !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .booking-section {
+    padding-bottom: 5rem;
   }
 }
 
