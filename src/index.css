@@ -30,7 +30,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* iOS Safari needs explicit safe-area spacing and native control colors. */
+/* iOS Safari + Telegram WebView fixes */
 .mobile-booking-cta {
   min-height: calc(56px + env(safe-area-inset-bottom, 0px));
   padding: 0 16px env(safe-area-inset-bottom, 0px);
@@ -40,6 +40,7 @@ body {
   padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));
 }
 
+/* ── Form controls ── */
 .booking-control {
   display: block;
   width: 100%;
@@ -51,22 +52,39 @@ body {
   box-shadow: none;
   -webkit-appearance: none;
   appearance: none;
+  font-size: 16px !important; /* предотвращает зум в Safari */
+  -webkit-text-fill-color: #1A1714;
+  color: #1A1714;
+  background-color: #F0EDE9;
 }
 
 .booking-date-time {
   color-scheme: light;
   color: #1A1714;
   -webkit-text-fill-color: #1A1714;
+  background-color: #F0EDE9;
 }
 
 .booking-date-time::-webkit-date-and-time-value {
-  min-height: 1.2em;
   text-align: left;
+  min-height: 1.2em;
+  display: flex;
+  align-items: center;
+  padding: 0;
 }
 
 .booking-date-time::-webkit-datetime-edit,
-.booking-date-time::-webkit-datetime-edit-fields-wrapper {
+.booking-date-time::-webkit-datetime-edit-fields-wrapper,
+.booking-date-time::-webkit-datetime-edit-text,
+.booking-date-time::-webkit-datetime-edit-hour-field,
+.booking-date-time::-webkit-datetime-edit-minute-field,
+.booking-date-time::-webkit-datetime-edit-meridiem-field,
+.booking-date-time::-webkit-datetime-edit-day-field,
+.booking-date-time::-webkit-datetime-edit-month-field,
+.booking-date-time::-webkit-datetime-edit-year-field {
   padding: 0;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .booking-select {

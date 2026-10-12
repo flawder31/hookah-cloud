@@ -19,7 +19,7 @@ const inputStyle = {
   backgroundColor: '#F0EDE9',
   border: '1.5px solid transparent',
   color: '#1A1714',
-  fontSize: '14px',
+  fontSize: '16px', // важно для iOS — предотвращает зум
   paddingLeft: '16px',
   paddingRight: '16px',
   width: '100%',
@@ -40,6 +40,17 @@ export default function BookingForm() {
     reset,
   } = useForm<FormData>({ mode: 'onBlur' })
 
+  // Скролл к полю при фокусе (особенно важно в Telegram WebView на iOS)
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setTimeout(() => {
+      e.target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest',
+      })
+    }, 300)
+  }
+
   const onSubmit = async (data: FormData) => {
     const now = Date.now()
     const attempts = JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '[]') as number[]
@@ -53,6 +64,7 @@ export default function BookingForm() {
 
     setSubmitError('')
     setLoading(true)
+
     const text =
       `*Новая бронь — Парящие Облака*\n` +
       `Имя: ${data.name}\n` +
@@ -62,7 +74,6 @@ export default function BookingForm() {
       `Персон: ${data.guests}`
 
     try {
-      // Replace TOKEN and CHAT_ID with real values for production
       const TOKEN = 'YOUR_BOT_TOKEN'
       const CHAT_ID = 'YOUR_CHAT_ID'
 
@@ -90,9 +101,10 @@ export default function BookingForm() {
   return (
     <section id="booking" className="booking-section bg-[#12100D] px-4 pt-20 md:px-8">
       <div className="mx-auto min-w-0 max-w-xl">
-        {/* Label */}
         <div className="ornament mb-4">
-          <span className="text-[10px] tracking-[0.4em] uppercase font-cinzel" style={{ color: '#C9A87C' }}>БРОНИРОВАНИЕ</span>
+          <span className="text-[10px] tracking-[0.4em] uppercase font-cinzel" style={{ color: '#C9A87C' }}>
+            БРОНИРОВАНИЕ
+          </span>
         </div>
 
         <h2
@@ -101,6 +113,7 @@ export default function BookingForm() {
         >
           Забронировать столик
         </h2>
+
         <p className="text-center font-inter mb-10" style={{ fontSize: '13px', color: '#6B6560' }}>
           Ответим в течение 15 минут
         </p>
@@ -126,6 +139,7 @@ export default function BookingForm() {
                 autoComplete="name"
                 className="booking-control"
                 style={inputStyle}
+                onFocus={handleFocus}
               />
               {errors.name && (
                 <p className="mt-1 font-inter" style={{ fontSize: '11px', color: '#C9A87C' }}>{errors.name.message}</p>
@@ -148,6 +162,7 @@ export default function BookingForm() {
                 autoComplete="tel"
                 className="booking-control"
                 style={inputStyle}
+                onFocus={handleFocus}
               />
               {errors.phone && (
                 <p className="mt-1 font-inter" style={{ fontSize: '11px', color: '#C9A87C' }}>{errors.phone.message}</p>
@@ -167,8 +182,10 @@ export default function BookingForm() {
                   min={new Date().toISOString().split('T')[0]}
                   className="booking-control booking-date-time min-w-0"
                   style={{ ...inputStyle, paddingLeft: '12px', paddingRight: '12px' }}
+                  onFocus={handleFocus}
                 />
               </div>
+
               <div className="min-w-0">
                 <label htmlFor="booking-time" className="mb-1.5 block font-inter text-xs text-gold">
                   Время
@@ -179,9 +196,11 @@ export default function BookingForm() {
                   type="time"
                   className="booking-control booking-date-time min-w-0"
                   style={{ ...inputStyle, paddingLeft: '12px', paddingRight: '12px' }}
+                  onFocus={handleFocus}
                 />
               </div>
             </div>
+
             {(errors.date || errors.time) && (
               <p className="-mt-3 font-inter text-[11px] text-gold">Укажите дату и время бронирования</p>
             )}
@@ -192,10 +211,13 @@ export default function BookingForm() {
                 {...register('guests', { required: 'Выберите кол-во' })}
                 className="booking-control booking-select"
                 style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}
+                onFocus={handleFocus}
               >
                 <option value="">Выберите количество персон</option>
                 {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
-                  <option key={n} value={n}>{n} {n === 1 ? 'персона' : n < 5 ? 'персоны' : 'персон'}</option>
+                  <option key={n} value={n}>
+                    {n} {n === 1 ? 'персона' : n < 5 ? 'персоны' : 'персон'}
+                  </option>
                 ))}
                 <option value="9+">9+ персон</option>
               </select>
@@ -210,7 +232,6 @@ export default function BookingForm() {
               </p>
             )}
 
-            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
